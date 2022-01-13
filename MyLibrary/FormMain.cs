@@ -22,7 +22,22 @@ namespace MyLibrary
             base.OnShown(e);
 
             LogIn login = new LogIn();
+            login.UserLogedIn += Login_UserLogedIn;       
             login.Show(this);
+        }
+
+        private void Login_UserLogedIn(object sender, EventArgs e)
+        {
+            using (DataSet dataset = new DataSet())
+            {
+                dataset.ReadXml("popisKnjiga.xml");
+                dataGridView1.DataSource = dataset.Tables[0];
+            }
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
